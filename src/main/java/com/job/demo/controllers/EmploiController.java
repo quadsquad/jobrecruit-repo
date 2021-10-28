@@ -63,9 +63,9 @@ return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
 }
 }
 
-@GetMapping("/emplois/{category}")
-public ResponseEntity<?> getSingleEmploi(@PathVariable("category") String category){
-Optional<Emploi> emploiOptional = empRepo.findByEmploi(category);
+@GetMapping("/emplois/{id}")
+public ResponseEntity<?> getSingleEmploi(@PathVariable("id") String id){
+Optional<Emploi> emploiOptional = empRepo.findByEmploi(id);
 if (emploiOptional.isPresent())
 {
 return new ResponseEntity<Emploi>(emploiOptional.get(), HttpStatus.OK);
@@ -108,5 +108,12 @@ return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERR
 }
 }
 
-
+@GetMapping("/emploi/{id_emp}")
+public ResponseEntity<?> getEmpById(@PathVariable String id_emp) {
+	if (empRepo.findById(id_emp).isPresent()) {
+		return new ResponseEntity<Emploi>(empRepo.findById(id_emp).get(), HttpStatus.OK);
+	} else {
+		return new ResponseEntity<>("Error finding job", HttpStatus.NOT_FOUND);
+	}
+}
 }
