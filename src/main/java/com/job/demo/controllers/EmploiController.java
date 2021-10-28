@@ -48,21 +48,6 @@ return new ResponseEntity<String>("No emplois Available",HttpStatus.NOT_FOUND);
 }
 
 
-
-@PostMapping("/emplois")
-public ResponseEntity<?> createEmploi(@RequestBody Emploi emploi){
-try {
-empService.createEmploi(emploi);
-return new ResponseEntity<Emploi>(emploi, HttpStatus.OK);
-} catch (ConstraintViolationException e) {
-// TODO: handle exception
-return new ResponseEntity<String>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
-}catch(EmploiCollectionException e){
-return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
-
-}
-}
-
 @GetMapping("/emplois/{id}")
 public ResponseEntity<?> getSingleEmploi(@PathVariable("id") String id){
 Optional<Emploi> emploiOptional = empRepo.findByEmploi(id);
