@@ -34,6 +34,22 @@ private EmploiRepository empRepo;
 private EmploiService empService;
 
 
+
+@PostMapping("/createEmploi")
+public ResponseEntity<?> createEmploi(@RequestBody Emploi emploi){
+try {
+empService.createEmploi(emploi);
+return new ResponseEntity<Emploi>(emploi, HttpStatus.OK);
+} catch (ConstraintViolationException e) {
+// TODO: handle exception
+return new ResponseEntity<String>(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+}catch(EmploiCollectionException e){
+return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
+
+}
+}
+
+
 @GetMapping("/findAllEmplois")
 public ResponseEntity<?> getAllEmplois(){
 List<Emploi> emps = empRepo.findAll();
@@ -48,9 +64,9 @@ return new ResponseEntity<String>("No emplois Available",HttpStatus.NOT_FOUND);
 }
 
 
-@GetMapping("/emplois/{id}")
+@GetMapping("/emploibyid/{id}")
 public ResponseEntity<?> getSingleEmploi(@PathVariable("id") String id){
-Optional<Emploi> emploiOptional = empRepo.findByEmploi(id);
+Optional<Emploi> emploiOptional = empRepo.findById(id);
 if (emploiOptional.isPresent())
 {
 return new ResponseEntity<Emploi>(emploiOptional.get(), HttpStatus.OK);
