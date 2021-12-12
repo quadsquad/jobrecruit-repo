@@ -64,6 +64,8 @@ return new ResponseEntity<String>("No emplois Available",HttpStatus.NOT_FOUND);
 }
 
 
+
+
 @GetMapping("/emploibyid/{id}")
 public ResponseEntity<?> getSingleEmploi(@PathVariable("id") String id){
 Optional<Emploi> emploiOptional = empRepo.findById(id);
@@ -88,6 +90,7 @@ emploiToSave.setNom_entreprise(emploi.getNom_entreprise() != null? emploi.getNom
 emploiToSave.setType_emploi(emploi.getType_emploi() != null? emploi.getType_emploi(): emploiToSave.getType_emploi());
 emploiToSave.setStatus(emploi.getStatus() != null? emploi.getStatus(): emploiToSave.getStatus());
 emploiToSave.setCategory(emploi.getCategory() != null? emploi.getCategory(): emploiToSave.getCategory());
+emploiToSave.setSkills_required(emploi.getSkills_required() != null? emploi.getSkills_required(): emploiToSave.getSkills_required());
 
 empRepo.save(emploiToSave);
 return new ResponseEntity<Emploi>(emploiOptional.get(), HttpStatus.OK);

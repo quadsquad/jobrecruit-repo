@@ -18,12 +18,9 @@ public class EmploiServiceImpl implements EmploiService {
 	
 	public void createEmploi(Emploi emploi) throws ConstraintViolationException, EmploiCollectionException{
 			Optional<Emploi> empOptional = empRepo.findByEmploi(emploi.getTitre_emploi());
-			if (empOptional.isPresent()){
-				throw new EmploiCollectionException(EmploiCollectionException.EmploiAlreadyExists());
-				
-			}else{
+		
 				empRepo.save(emploi);
-			}
+			
 		
 	}
 

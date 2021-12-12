@@ -7,8 +7,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.validation.constraints.NotNull;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -37,7 +49,9 @@ private String description;
 private int nbr_candidatures;
 
 private String category;
-
+private String logo_entreprise;
+private String salaire;
+private String skills_required;
 private String adresse;
 
 @NotEmpty(message="This Field must be not empty")
@@ -45,6 +59,15 @@ private String adresse;
 private String type_emploi;
 
 private String status;
+
+
+
+@CreatedBy
+@Temporal(TemporalType.TIMESTAMP)
+@ColumnDefault("timestamp")
+private LocalDateTime timestamp;
+
+
 
 public String getId() {
 return id;
@@ -118,6 +141,42 @@ public String getCategory() {
 public void setCategory(String category) {
 	this.category = category;
 }
+
+public String getLogo_entreprise() {
+	return logo_entreprise;
+}
+
+public void setLogo_entreprise(String logo_entreprise) {
+	this.logo_entreprise = logo_entreprise;
+}
+
+public String getSalaire() {
+	return salaire;
+}
+
+public void setSalaire(String salaire) {
+	this.salaire = salaire;
+}
+
+public String getSkills_required() {
+	return skills_required;
+}
+
+public void setSkills_required(String skills_required) {
+	this.skills_required = skills_required;
+}
+
+public LocalDateTime getTimestamp() {
+	return timestamp;
+}
+
+public void setTimestamp(LocalDateTime timestamp) {
+	this.timestamp = timestamp;
+}
+
+
+
+
 
 
 
